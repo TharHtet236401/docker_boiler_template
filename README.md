@@ -21,6 +21,7 @@ A simple Docker boilerplate for Node.js Express applications with hot-reloading 
 - Dockerfile: Defines the Docker image configuration.
 - .dockerignore: Specifies files and directories to be ignored by Docker.
 - readMe.md: This file.
+- docker-compose.yaml: Defines the Docker Compose configuration.
 # docker_boiler_template
 
 ## Docker Commands
