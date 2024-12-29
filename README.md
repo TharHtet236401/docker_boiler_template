@@ -33,14 +33,21 @@ docker build -t my-test-app .
 docker build -t my-test-app:latest .
 
 ### Running Containers with Hot Reloading using Nodemon
-# Replace "C:/Users/Thar_Htet/Desktop/docker-self/api" with your project path
+### Replace "C:/Users/Thar_Htet/Desktop/docker-self/api" with your project path
 docker run --name my_app_c_nodemon -p 4000:4000 --rm -v /path/to/your/project/api:/app -v /app/node_modules myapp:nodemon
 
-# Example:
-# Windows: docker run --name my_app_c_nodemon -p 4000:4000 --rm -v C:/Users/YourUsername/project/api:/app -v /app/node_modules myapp:nodemon
-# Mac/Linux: docker run --name my_app_c_nodemon -p 4000:4000 --rm -v /Users/YourUsername/project/api:/app -v /app/node_modules myapp:nodemon
+### Example:
+### Windows: docker run --name my_app_c_nodemon -p 4000:4000 --rm -v C:/Users/YourUsername/project/api:/app -v /app/node_modules myapp:nodemon
+### Mac/Linux: docker run --name my_app_c_nodemon -p 4000:4000 --rm -v /Users/YourUsername/project/api:/app -v /app/node_modules myapp:nodemon
 
 
+### Running in Bash
+### For Windows users with Git Bash or WSL, or Mac/Linux users:
+docker run --name my_app_c_nodemon -p 4000:4000 --rm -v "/$(pwd)/api":/app -v /app/node_modules myapp:nodemon
+
+### Note: $(pwd) gets replaced with your current working directory path
+
+##sample command
 docker run --name my_app_c_nodemon -p 4000:4000 --rm -v C:/Users/Thar_Htet/Desktop/docker-self/api:/app -v /a
 pp/node_modules myapp:nodemon
 
