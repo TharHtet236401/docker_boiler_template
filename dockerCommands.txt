@@ -1,0 +1,96 @@
+docker build -t my-test-app . ## build the image
+docker build -t my-test-app:latest . ## build the image with a tag
+docker run -p 4000:4000 my-test-app ## run the image
+docker run -p 4000:4000 my-test-app:latest ## run the image with a tag
+docker run --name mytestapp -p 4000:4000 my-test-app  ## run the image with a name to build the container
+docker run --name my_app_c_nodemon -p 4000:4000 --rm  myapp:nodemon ## run the image with a name to build the container and remove the container after it is stopped
+docker ps ## list the running containers
+docker stop <container_id> ## stop the container
+docker rm <container_id> ## remove the container
+docker rmi <image_id> ## remove the image
+docker images ## list the images
+docker image rm <image_id> ## remove the image
+docker system prune ## remove all the containers and images
+docker-compose up -d ## run the docker compose file
+docker ps -a ## list all the containers
+docker ps ## list the running containers
+docker logs <container_id> ## list the logs of the container
+docker exec -it <container_id> /bin/bash ## enter the container
+docker exec -it <container_id> <command> ## run a command in the container
+docker commit <container_id> <image_name> ## commit the container to an image
+docker push <image_name> ## push the image to the registry
+docker pull <image_name> ## pull the image from the registry
+docker tag <image_name> <image_name:tag> ## tag the image
+docker system prune -a ## remove all the containers and images
+docker start mytestapp ## start the existing container
+docker start -i mytestapp ## start the existing container and enter it
+docker stop mytestapp ## stop the existing container
+docker stop -t 0 mytestapp ## stop the existing container and remove it
+
+///
+install nodemon to run the server automatically
+npm install -g nodemon
+nodemon app.js
+add the dev command to the package.json file
+CMD ["npm", "run", "dev"]
+///
+
+//for running the container and delete the container after it is stopped
+docker run --name my_app_c_nodemon -p 4000:4000 --rm  myapp:nodemon
+
+
+//This Docker command creates and runs a development container named "my_app_c_nodemon" that maps port 4000, automatically removes itself when stopped, connects your local project files to the container's /app directory for live code updates, preserves the container's node_modules directory, and runs using the myapp:nodemon image with nodemon for hot-reloading capabilities.//
+
+docker run --name my_app_c_nodemon -p 4000:4000 --rm -v C:\Users\Thar_Htet\Desktop\docker-crash-course\api:/app -v /app/node_modules myapp:nodemon
+
+//minor adjustment 
+docker run --name my_app_c_nodemon -p 4000:4000 --rm -v C:/Users/Thar_Htet/Desktop/docker-self/api:/app -v /a
+pp/node_modules myapp:nodemon
+
+
+
+*** Compose Commands ***
+
+//// docker-compose.yml file ////
+version: "3.8"
+
+services:
+  api:
+    build: ./api
+    container_name: api_dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+
+//// docker-compose up -d ////
+
+docker system prune  // remove all the containers and images
+docker compose up // run the docker compose file
+docker compose down --rmi all -v // remove all the containers and images and volumes
+
+
+
+
+////docker file ///
+FROM node:16-alpine
+
+# install nodemon globally
+RUN npm install -g nodemon
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 4000
+# required for docker desktop port mapping
+
+CMD ["npm", "run", "dev"] 
+# run the app.js file
+
+///docker file ///
